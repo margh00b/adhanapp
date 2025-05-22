@@ -13,6 +13,7 @@ const TimingsList = () => {
   }
 
   const [timings, setTimings] = useState<Prayer[]>([]);
+  const [timezone, setTimeZone] = useState("UTC");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [mapSrc, setMapSrc] = useState(``);
@@ -29,6 +30,7 @@ const TimingsList = () => {
 
           const data = await fetchTimings(lat, lng);
           const prayers = data?.multiDayTimings?.[0]?.prayers;
+          setTimeZone(data?.locationInfo?.timezone);
 
           if (Array.isArray(prayers)) {
             setTimings(prayers);
@@ -88,7 +90,7 @@ const TimingsList = () => {
             <li className="flex justify-between items-center">
               <span>🌅 Sunrise</span>
               <span className="font-mono">
-                {timeConversion(Number(sunrise.time))}
+                {timeConversion(Number(sunrise.time), timezone)}
               </span>
             </li>
           )}
@@ -96,7 +98,7 @@ const TimingsList = () => {
             <li className="flex justify-between items-center">
               <span>🌇 Sunset</span>
               <span className="font-mono">
-                {timeConversion(Number(sunset.time))}
+                {timeConversion(Number(sunset.time), timezone)}
               </span>
             </li>
           )}
@@ -111,7 +113,7 @@ const TimingsList = () => {
           >
             <span className="font-medium">{prayer.name}</span>
             <span className="font-mono">
-              {timeConversion(Number(prayer.time))}
+              {timeConversion(Number(prayer.time), timezone)}
             </span>
           </li>
         ))}
