@@ -32,8 +32,9 @@ export default function SelectLocation() {
       } else {
         throw new Error(data.error_message || "No address found!");
       }
-    } catch (err: any) {
-      setError(err.message || "An unexpected error occurred.");
+    } catch (error) {
+      setError("An unexpected error occurred.");
+      console.log(error);
     } finally {
       setLoading(false);
     }
