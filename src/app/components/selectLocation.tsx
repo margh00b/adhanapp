@@ -29,11 +29,9 @@ export default function SelectLocation() {
       if (data.status === "OK") {
         const { lat, lng } = data.results[0].geometry.location;
         setLatLng(lat, lng);
-      } else {
-        throw new Error(data.error_message || "No address found!");
       }
     } catch (error) {
-      setError("An unexpected error occurred.");
+      setError("No address found!");
       console.log(error);
     } finally {
       setLoading(false);
