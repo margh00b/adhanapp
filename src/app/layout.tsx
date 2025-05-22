@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Adhan Timings",
-  description: "Adhan Timings by Alislam",
+  title: "Prayer Timings",
+  description: "Prayer Timings by Alislam",
 };
 
 export default function RootLayout({

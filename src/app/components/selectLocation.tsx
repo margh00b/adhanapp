@@ -51,7 +51,7 @@ export default function SelectLocation() {
         disabled={!input.trim() || loading}
         onClick={() => handleSelect(input)}
       >
-        {loading ? "Loading..." : "Get Adhan Timings"}
+        {loading ? "Loading..." : "Get Prayer Timings"}
       </button>
 
       {error && <p className="mt-2 text-red-400 text-sm">{error}</p>}
