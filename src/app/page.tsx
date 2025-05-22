@@ -1,7 +1,5 @@
-import Image from "next/image";
 import TimingsList from "./components/timingsList";
 import SelectLocation from "./components/selectLocation";
-import { LocationProvider } from "./context/locationContext";
 
 export default function Home() {
   return (

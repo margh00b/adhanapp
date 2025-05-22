@@ -7,7 +7,12 @@ import { useLocation } from "../context/locationContext";
 
 const TimingsList = () => {
   const { lat, lng } = useLocation();
-  const [timings, setTimings] = useState<any[]>([]);
+  interface Prayer {
+    name: string;
+    time: string;
+  }
+
+  const [timings, setTimings] = useState<Prayer[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [mapSrc, setMapSrc] = useState(``);
@@ -30,8 +35,9 @@ const TimingsList = () => {
           } else {
             setError("No prayer timings found.");
           }
-        } catch (err) {
+        } catch (error) {
           setError("Failed to load timings.");
+          console.log(error);
         } finally {
           setLoading(false);
         }
@@ -73,7 +79,7 @@ const TimingsList = () => {
       </div>
 
       <h2 className="text-3xl font-semibold mb-6 text-center tracking-wide">
-        Today's Prayer Times
+        Today&apos;s Prayer Times
       </h2>
 
       <div className="mb-6 p-4 bg-gray-800 rounded-lg border border-gray-700">
@@ -81,26 +87,32 @@ const TimingsList = () => {
           {sunrise && (
             <li className="flex justify-between items-center">
               <span>🌅 Sunrise</span>
-              <span className="font-mono">{timeConversion(sunrise.time)}</span>
+              <span className="font-mono">
+                {timeConversion(Number(sunrise.time))}
+              </span>
             </li>
           )}
           {sunset && (
             <li className="flex justify-between items-center">
               <span>🌇 Sunset</span>
-              <span className="font-mono">{timeConversion(sunset.time)}</span>
+              <span className="font-mono">
+                {timeConversion(Number(sunset.time))}
+              </span>
             </li>
           )}
         </ul>
       </div>
 
       <ul className="space-y-3">
-        {prayers.map((prayer: any) => (
+        {prayers.map((prayer) => (
           <li
             key={prayer.name}
             className="flex items-center justify-between p-3 bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700 transition"
           >
             <span className="font-medium">{prayer.name}</span>
-            <span className="font-mono">{timeConversion(prayer.time)}</span>
+            <span className="font-mono">
+              {timeConversion(Number(prayer.time))}
+            </span>
           </li>
         ))}
       </ul>

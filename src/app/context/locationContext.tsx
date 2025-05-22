@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
+import { ReactNode } from "react";
 
 const LocationContext = createContext<{
   lat: number | null;
@@ -8,10 +9,10 @@ const LocationContext = createContext<{
 }>({
   lat: null,
   lng: null,
-  setLatLng: (_lat: number, _lng: number) => {},
+  setLatLng: () => {},
 });
 
-import { ReactNode } from "react";
+const defaultCoords = { lat: 51.509865, lng: -0.118092 };
 
 export const LocationProvider = ({ children }: { children: ReactNode }) => {
   const [lat, setLat] = useState<number | null>(null);
@@ -21,7 +22,7 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     setLat(newLat);
     setLng(newLng);
   };
-  const defaultCoords = { lat: 51.509865, lng: -0.118092 };
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -29,7 +30,7 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
         },
-        (error) => {
+        () => {
           setLat(defaultCoords.lat);
           setLng(defaultCoords.lng);
         }
