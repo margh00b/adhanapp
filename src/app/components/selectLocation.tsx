@@ -30,7 +30,7 @@ export default function SelectLocation() {
         const { lat, lng } = data.results[0].geometry.location;
         setLatLng(lat, lng);
       } else {
-        throw new Error(data.error_message || "Failed to fetch location data.");
+        throw new Error(data.error_message || "No address found!");
       }
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred.");
